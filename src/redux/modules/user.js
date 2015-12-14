@@ -33,7 +33,7 @@ function loggedUser(token) {
   };
 }
 
-function logInErrored(error) {
+export function logInErrored(error) {
   return {
     type: LOGIN_ERRORED,
     error
@@ -46,7 +46,7 @@ export function loginUser(user) {
   return async function login(dispatch) {
     dispatch(loggingUser());
     try {
-      const request = await fetch('http://api.staging.bought.today/v1' + '/login', {
+      const request = await fetch('/api/login', {
         method: 'post',
         body: JSON.stringify(user)
       });

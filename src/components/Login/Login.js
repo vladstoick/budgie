@@ -11,7 +11,8 @@ export default class Login extends React.Component {
     loginUser: React.PropTypes.func.isRequired,
     user: React.PropTypes.shape({
       isLoggingUser: React.PropTypes.boolean,
-      token: React.PropTypes.string
+      token: React.PropTypes.string,
+      error: React.PropTypes.string
     })
   }
 
@@ -22,7 +23,9 @@ export default class Login extends React.Component {
     if (!this.props.user.isLoggingUser) {
       return (
         <div>
-          <LoginForm onSubmit={this.props.loginUser}/>
+          <LoginForm
+            loginError={this.props.user.error}
+            onSubmit={this.props.loginUser}/>
         </div>
       );
     }

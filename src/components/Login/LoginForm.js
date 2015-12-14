@@ -1,6 +1,6 @@
 import React from 'react';
 import TextInput from '../Shared/TextInput';
-// import Button from '../Shared/Button';
+import Button from '../Shared/Button';
 import {reduxForm} from 'redux-form';
 
 const validate = values => {
@@ -30,7 +30,7 @@ class LoginForm extends React.Component {
     if (this.props.loginError) {
       error = (
         <div className="alert alert-danger" role="alert">
-          <strong>Error! </strong>{this.props.loginError}
+          <strong>{this.props.loginError}</strong>
         </div>
       );
     }
@@ -39,7 +39,8 @@ class LoginForm extends React.Component {
       <div className="row">
         <div className="col-md-6 col-md-offset-3">
           {error}
-          <form onSubmit={this.props.handleSubmit}>
+          <h1 className="text-center">Login</h1>
+            <form onSubmit={this.props.handleSubmit} action="loginjs" method="post">
             <TextInput
               label="Username"
               type="text"
@@ -49,11 +50,11 @@ class LoginForm extends React.Component {
               type="password"
               error={this.props.fields.password.error}
               obj={this.props.fields.password}/>
-            <button
-              className="btn"
-              onSubmit={this.props.handleSubmit}>
-              SUBMIT
-            </button>
+            <Button
+              align="right"
+              onClick={this.props.handleSubmit}
+              type="primary"
+              text="Login"/>
           </form>
         </div>
       </div>

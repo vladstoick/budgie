@@ -8,9 +8,11 @@ import httpProxy from 'http-proxy';
 import path from 'path';
 import createStore from './redux/create';
 import Html from './helpers/Html';
-import PrettyError from 'pretty-error';
 import http from 'http';
-import SocketIo from 'socket.io';
+import morgan from 'morgan';
+import bodyParser from 'body-parser';
+import fetch from 'isomorphic-fetch';
+import url from 'url';
 
 import {ReduxRouter} from 'redux-router';
 import createHistory from 'history/lib/createMemoryHistory';
@@ -20,14 +22,47 @@ import qs from 'query-string';
 import getRoutes from './routes';
 import getStatusFromRoutes from './helpers/getStatusFromRoutes';
 
-const pretty = new PrettyError();
+import * as userActions from "./redux/modules/user";
+
 const app = new Express();
 const server = new http.Server(app);
 
+const API_URL='http://api.staging.bought.today/v1'
+const proxy = httpProxy.createProxyServer({
+  target: API_URL,
+  changeOrigin: true
+});
+
+app.use(morgan('combined'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded());
 app.use(compression());
+
 app.use(favicon(path.join(__dirname, '..', 'static', 'favicon.ico')));
 
 app.use(Express.static(path.join(__dirname, '..', 'static')));
+
+app.use('/api', (req, res) => {
+  proxy.web(req, res);
+});
+
+let wrap = fn => (...args) => fn(...args).catch(args[2]);
+app.post('/loginjs', wrap(async function(req, res) {
+  const request = await fetch(API_URL + '/login', {
+    method: 'post',
+    body: JSON.stringify(req.body)
+  });
+  const data = await request.json();
+
+  const store = createStore(reduxReactRouter, getRoutes, createHistory);
+  if(request.status == 401){
+    res.redirect('/login?error=' + data.error);
+  } else {
+    res.cookie('token', data.token);
+    res.redirect('/');
+  }
+  console.log(data);
+}));
 
 app.use((req, res) => {
   if (__DEVELOPMENT__) {
@@ -37,6 +72,11 @@ app.use((req, res) => {
   }
 
   const store = createStore(reduxReactRouter, getRoutes, createHistory);
+
+  // handle url errors
+  if(url.parse(req.url).pathname === '/login' && req.query.error){
+    store.dispatch(userActions.logInErrored(req.query.error));
+  }
 
   function hydrateOnClient() {
     res.send('<!doctype html>\n' +
