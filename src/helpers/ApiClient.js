@@ -1,5 +1,6 @@
 import config from '../config';
 import fetch from 'isomorphic-fetch';
+import reactCookie from 'react-cookie';
 
 export default class ApiClient {
   getBaseUrl() {
@@ -10,11 +11,29 @@ export default class ApiClient {
   }
 
   async login(user) {
-    console.log(this.getBaseUrl() + '/login');
     const request = await fetch(this.getBaseUrl() + '/login', {
       method: 'post',
       body: JSON.stringify(user)
     });
-    return request;
+    const data = await request.json();
+    if (request.status >= 400) {
+      throw new Error(data.error);
+    } else {
+      return data;
+    }
+  }
+
+  async getPayments() {
+    const request = await fetch(this.getBaseUrl() + '/users/me/payments', {
+      headers: {
+        'Authorization': 'Bearer ' + reactCookie.load('token')
+      }
+    });
+    const data = request.json();
+    if (request.status >= 400) {
+      throw new Error(data.error);
+    } else {
+      return data;
+    }
   }
 }

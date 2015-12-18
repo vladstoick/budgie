@@ -2,8 +2,8 @@ const IS_FETCHING_DATA = {};
 const FETCHED_DATA = {};
 const FETCH_ERRORED = {};
 
-import fetch from 'isomorphic-fetch';
-// import config from '../../config';
+import ApiClient from '../../helpers/ApiClient';
+const apiClient = new ApiClient();
 
 const initialState = {};
 
@@ -26,7 +26,6 @@ export function fetchPayments() {
 }
 
 export function fetchedPayments(payments) {
-  console.log('ss');
   return {
     type: FETCHED_DATA,
     payments
@@ -41,22 +40,12 @@ export function fetchErrored(error) {
 }
 
 export function loadPayments() {
-  return async function load(dispatch, getState) {
+  return async function load(dispatch) {
     dispatch(fetchPayments());
-    const token = getState().user.token;
     try {
-      let url = '/api/users/me/payments?token=' + token;
-      if (__SERVER__) {
-        url = 'http://localhost:3000' + url;
-      }
-      const request = await fetch(url);
-      const data = await request.json();
-      if (request.status >= 400) {
-        throw new Error(data.error);
-      }
+      const data = await apiClient.getPayments();
       dispatch(fetchedPayments(data));
     } catch (error) {
-      console.log(error);
       dispatch(fetchErrored(error.message));
     }
   };

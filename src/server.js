@@ -44,11 +44,14 @@ app.use(Express.static(path.join(__dirname, '..', 'static')));
 const proxy = httpProxy.createProxyServer({
   target: config.apiHost,
   changeOrigin: true,
-  auth: 'token'
 });
+// proxy.on('proxyReq', function(proxyReq, req) {
+//   if(req.query.token){
+//     proxyReq.setHeader('Authorization', 'Bearer ' + req.query.token);
+//   }
+// });
 
 app.use('/api', (req, res) => {
-  console.log("REQUEST");
   proxy.web(req, res);
 });
 

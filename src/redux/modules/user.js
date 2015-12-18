@@ -5,6 +5,7 @@ const LOGOUT_USER = 'LOGOUT_USER';
 
 import reactCookie from 'react-cookie';
 import ApiClient from '../../helpers/ApiClient';
+const apiClient = new ApiClient();
 const initialState = { };
 
 export default function reducer(state = initialState, action = {}) {
@@ -54,16 +55,10 @@ export function loginUser(user) {
   return async function login(dispatch) {
     dispatch(loggingUser());
     try {
-      const apiClient = new ApiClient();
-      const request = await apiClient.login(user);
-      console.log(request);
-      const data = await request.json();
-      if (request.status > 400) {
-        throw new Error(data.error);
-      }
+      const data = await apiClient.login(user);
+      reactCookie.save('token', data.token);
       dispatch(loggedInUser(data.token));
     } catch (error) {
-
       dispatch(logInErrored(error.message));
     }
   };

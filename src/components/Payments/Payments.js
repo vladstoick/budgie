@@ -2,6 +2,7 @@ import React from 'react';
 import * as paymentActions from '../../redux/modules/payments.js';
 import { connect } from 'react-redux';
 import connectData from '../../helpers/connectData';
+import PaymentsList from './PaymentsList';
 
 function fetchDataDeferred(getState, dispatch) {
   return dispatch(paymentActions.loadPayments());
@@ -27,10 +28,10 @@ export default class Payments extends React.Component {
 
   render() {
     if (this.props.payments.data) {
-      return <div>{this.props.payments.data[0].id}</div>;
+      return <PaymentsList payments={this.props.payments.data}/>;
     } else if (this.props.payments.error) {
       return <div>{this.props.payments.error}</div>;
     }
-    return <div>YOLO</div>;
+    return <div>Loading data...</div>;
   }
 }
