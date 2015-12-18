@@ -2,10 +2,10 @@ const IS_LOGGING_USER = 'LOGGING_USER';
 const LOGGED_USER = 'LOGGED_USER';
 const LOGIN_ERRORED = 'LOGIN_ERRORED';
 const LOGOUT_USER = 'LOGOUT_USER';
-import fetch from 'isomorphic-fetch';
 
-
-const initialState = {};
+import reactCookie from 'react-cookie';
+import ApiClient from '../../helpers/ApiClient';
+const initialState = { };
 
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
@@ -15,7 +15,7 @@ export default function reducer(state = initialState, action = {}) {
       return Object.assign({}, { token: action.token });
     case LOGIN_ERRORED:
       return Object.assign({}, { error: action.error });
-    case LOGOUT_USER: return initialState;
+    case LOGOUT_USER: return {};
     default: return state;
   }
 }
@@ -26,7 +26,7 @@ function loggingUser() {
   };
 }
 
-function loggedUser(token) {
+function loggedInUser(token) {
   return {
     type: LOGGED_USER,
     token
@@ -40,22 +40,30 @@ export function logInErrored(error) {
   };
 }
 
-// import { signIn } from '../api/user';
+export function loadToken() {
+  return function load(dispatch) {
+    const token = reactCookie.load('token');
+    if (token) {
+      dispatch(loggedInUser(token));
+    }
+  };
+}
+
+
 export function loginUser(user) {
-  console.log('Logging IN');
   return async function login(dispatch) {
     dispatch(loggingUser());
     try {
-      const request = await fetch('/api/login', {
-        method: 'post',
-        body: JSON.stringify(user)
-      });
+      const apiClient = new ApiClient();
+      const request = await apiClient.login(user);
+      console.log(request);
       const data = await request.json();
-      if (request.status === 401) {
+      if (request.status > 400) {
         throw new Error(data.error);
       }
-      dispatch(loggedUser(data.token));
+      dispatch(loggedInUser(data.token));
     } catch (error) {
+
       dispatch(logInErrored(error.message));
     }
   };

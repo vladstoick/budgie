@@ -7,3 +7,4 @@
 export App from './App/App';
 export Login from './Login/Login';
 export Header from './Header/Header';
+export Payments from './Payments/Payments';

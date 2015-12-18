@@ -12,10 +12,10 @@ const environment = {
 module.exports = Object.assign({
   host: process.env.HOST || 'localhost',
   port: process.env.PORT,
-  apiHost: process.env.APIHOST || 'localhost',
-  apiPort: process.env.APIPORT,
+  apiHost: process.env.API,
+  apiRoute: process.env.API_ROUTE,
   app: {
-    title: 'React Redux Example',
+    title: 'Bought.today',
     description: 'All the modern best practices in one example.',
     meta: {
       charSet: 'utf-8',
