@@ -58,17 +58,14 @@ app.use('/api', (req, res) => {
 let wrap = fn => (...args) => fn(...args).catch(args[2]);
 app.post('/loginjs', wrap(async function(req, res) {
   reactCookie.plugToRequest(req, res);
-
-  const apiClient = new ApiClient();
-  const request = await apiClient.login(req.body);
-  const data = await request.json();
-
-  if(request.status == 401){
-    res.redirect('/login?error=' + data.error);
-  } else {
+  try {
+    const apiClient = new ApiClient();
+    const data = await apiClient.login(req.body);
     reactCookie.save('token', data.token);
     res.redirect('/');
-  }
+  } catch (error) {
+    res.redirect('/login?error=' + error.message);
+  } 
 }));
 
 app.use((req, res) => {

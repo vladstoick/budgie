@@ -22,10 +22,6 @@ export default class Payments extends React.Component {
     })
   }
 
-  componentWillMount() {
-    this.props.loadPayments();
-  }
-
   render() {
     if (this.props.payments.data) {
       return <PaymentsList payments={this.props.payments.data}/>;

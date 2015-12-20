@@ -1,6 +1,6 @@
 import React from 'react';
 
-class Button extends React.Component {
+export default class Button extends React.Component {
   static propTypes = {
     text: React.PropTypes.string.isRequired,
     onClick: React.PropTypes.func.isRequired,
@@ -31,5 +31,3 @@ class Button extends React.Component {
     );
   }
 }
-
-export default Button;

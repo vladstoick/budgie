@@ -1,9 +1,7 @@
 import React from 'react';
 import { Route } from 'react-router';
-
-import { App, Login, Payments } from 'components';
+import { App, Login, Payments } from 'containers';
 import { loadToken } from './redux/modules/user';
-
 
 export default (store) => {
   const requireLogin = (nextState, replaceState) => {

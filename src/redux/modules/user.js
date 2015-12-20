@@ -52,6 +52,7 @@ export function loadToken() {
 
 
 export function loginUser(user) {
+  console.log('logging in');
   return async function login(dispatch) {
     dispatch(loggingUser());
     try {

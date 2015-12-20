@@ -37,12 +37,10 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 if (__DEVTOOLS__ && !window.devToolsExtension) {
-  const DevTools = require('./components/DevTools/DevTools');
   ReactDOM.render(
     <Provider store={store} key="provider">
       <div>
         {component}
-        <DevTools />
       </div>
     </Provider>,
     dest

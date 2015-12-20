@@ -1,6 +1,5 @@
 import React from 'react';
-import TextInput from '../Shared/TextInput';
-import Button from '../Shared/Button';
+import { Button, TextInput } from '../../components';
 import {reduxForm} from 'redux-form';
 
 const validate = values => {

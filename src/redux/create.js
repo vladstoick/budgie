@@ -9,11 +9,10 @@ export default function createStore(reduxReactRouter, getRoutes, createHistory, 
   let finalCreateStore;
   if (__DEVELOPMENT__ && __CLIENT__ && __DEVTOOLS__) {
     const { persistState } = require('redux-devtools');
-    const DevTools = require('../components/DevTools/DevTools');
     middleware.push(createLogger());
     finalCreateStore = compose(
       applyMiddleware(...middleware),
-      window.devToolsExtension ? window.devToolsExtension() : DevTools.instrument(),
+      window.devToolsExtension ? window.devToolsExtension() : fa => fa,
       persistState(window.location.href.match(/[?&]debug_session=([^&]+)\b/))
     )(_createStore);
   } else {

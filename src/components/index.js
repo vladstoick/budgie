@@ -1,10 +1,4 @@
-/**
- *  Point of contact for component modules
- *
- *  ie: import { CounterButton, InfoBar } from 'components';
- *
- */
-export App from './App/App';
-export Login from './Login/Login';
-export Header from './Header/Header';
-export Payments from './Payments/Payments';
+export Header from './Header';
+export Button from './Button';
+export TextInput from './TextInput';
+export RoundProfilePicture from './RoundProfilePicture';

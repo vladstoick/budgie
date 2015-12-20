@@ -1,0 +1,9 @@
+.roundProfilePicture {
+  background-color: white;
+  border-radius: 50%;
+  border: 1px solid #ddd;
+  float: left;
+  &:not(:last-child) {
+    margin-right: 10px;
+  }
+}
