@@ -4,8 +4,13 @@ import { App, Login, Payments } from 'containers';
 import { loadToken } from './redux/modules/user';
 
 export default (store) => {
+  const checkToken = () => {
+    if (!(store.getState().user.token)) {
+      store.dispatch(loadToken());
+    }
+  };
+
   const requireLogin = (nextState, replaceState) => {
-    store.dispatch(loadToken());
     const token = store.getState().user.token;
     if (!token) {
       replaceState(null, '/login');
@@ -13,14 +18,13 @@ export default (store) => {
   };
 
   const requireLogout = (nextState, replaceState) => {
-    store.dispatch(loadToken());
     const token = store.getState().user.token;
     if (token) {
       replaceState(null, '/payments');
     }
   };
   return (
-    <Route path="/" component={App}>
+    <Route path="/" component={App} onEnter={checkToken}>
       <Route path="login" component={Login} onEnter={requireLogout}/>
       <Route onEnter={requireLogin}>
         <Route path="payments" component={Payments}/>

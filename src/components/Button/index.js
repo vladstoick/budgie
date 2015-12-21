@@ -14,20 +14,22 @@ export default class Button extends React.Component {
   }
 
   getAlignType() {
-    return this.props.align ? 'pull-' + this.props.align : null;
+    return this.props.align ? 'text-${this.props.align}' : null;
   }
 
   getButtonClass() {
-    return [this.getAlignType(), this.getButtonType(), 'btn'].join(' ');
+    return [this.getButtonType(), 'btn'].join(' ');
   }
 
   render() {
     return (
-      <button
-        className={this.getButtonClass()}
-        onClick={this.props.onClick}>
-        {this.props.text}
-      </button>
+      <div className={this.getAlignType()}>
+        <button
+          className={this.getButtonClass()}
+          onClick={this.props.onClick}>
+          {this.props.text}
+        </button>
+      </div>
     );
   }
 }

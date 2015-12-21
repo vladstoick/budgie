@@ -9,16 +9,14 @@ export default class extends React.Component {
     if (this.props.users) {
       return (
         <div>
-          {this.props.users.map(function renderUser(user) {
-            return (
-              <RoundProfilePicture
-                user={user}
-                key={user.id}
-                width={50}
-                height={50}
-              />
-            );
-          })}
+          {this.props.users.map( user =>
+            <RoundProfilePicture
+              user={user}
+              key={user.id}
+              width={50}
+              height={50}
+            />
+          )}
         </div>
       );
     }

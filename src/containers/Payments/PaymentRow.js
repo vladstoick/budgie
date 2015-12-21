@@ -11,16 +11,15 @@ export default class PaymentsRow extends React.Component {
   }
 
   render() {
-    const styles = require('./styles.scss');
     return (
-      <div className={styles.paymentRow + ' row'}>
-        <div className="col-md-4">
+      <tr>
+        <td>
           <p>{this.props.payment.amount}</p>
-        </div>
-        <div className="col-md-8">
+        </td>
+        <td>
           <BeneficiariesList users={this.props.payment.beneficiaries}/>
-        </div>
-      </div>
+        </td>
+      </tr>
     );
   }
 }

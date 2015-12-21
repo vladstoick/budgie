@@ -17,9 +17,6 @@ export default class Login extends React.Component {
   }
 
   render() {
-    if (this.props.user.token) {
-      return <div>Logged in</div>;
-    }
     if (!this.props.user.isLoggingUser) {
       return (
         <div>

@@ -11,10 +11,9 @@ import Html from './helpers/Html';
 import http from 'http';
 import morgan from 'morgan';
 import bodyParser from 'body-parser';
-import fetch from 'isomorphic-fetch';
 import url from 'url';
 import reactCookie from 'react-cookie';
-import cookieParser from 'cookie-parser'
+import cookieParser from 'cookie-parser';
 
 import {ReduxRouter} from 'redux-router';
 import createHistory from 'history/lib/createMemoryHistory';
@@ -25,12 +24,10 @@ import getRoutes from './routes';
 import getStatusFromRoutes from './helpers/getStatusFromRoutes';
 import ApiClient from './helpers/ApiClient';
 
-import * as userActions from "./redux/modules/user";
+import * as userActions from './redux/modules/user';
 
 const app = new Express();
 const server = new http.Server(app);
-
-
 
 app.use(morgan('combined'));
 app.use(bodyParser.json());
@@ -55,8 +52,8 @@ app.use('/api', (req, res) => {
   proxy.web(req, res);
 });
 
-let wrap = fn => (...args) => fn(...args).catch(args[2]);
-app.post('/loginjs', wrap(async function(req, res) {
+const wrap = fn => (...args) => fn(...args).catch(args[2]);
+app.post('/loginjs', wrap(async (req, res) => {
   reactCookie.plugToRequest(req, res);
   try {
     const apiClient = new ApiClient();
@@ -65,7 +62,7 @@ app.post('/loginjs', wrap(async function(req, res) {
     res.redirect('/');
   } catch (error) {
     res.redirect('/login?error=' + error.message);
-  } 
+  }
 }));
 
 app.use((req, res) => {
@@ -79,7 +76,7 @@ app.use((req, res) => {
   const store = createStore(reduxReactRouter, getRoutes, createHistory);
 
   // handle login errors
-  if(url.parse(req.url).pathname === '/login' && req.query.error){
+  if (url.parse(req.url).pathname === '/login' && req.query.error) {
     store.dispatch(userActions.logInErrored(req.query.error));
   }
 

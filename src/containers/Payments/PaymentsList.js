@@ -8,11 +8,19 @@ export default class PaymentsList extends React.Component {
 
   render() {
     return (
-      <div>
-        {this.props.payments.map(function renderPaymentRow(payment) {
-          return <PaymentRow payment={payment} key={payment.id}/>;
-        })}
-      </div>
+      <table className="table table-striped">
+        <thead>
+          <tr>
+            <th>Amount</th>
+            <th>Beneficiaries</th>
+          </tr>
+        </thead>
+        <tbody>
+          {this.props.payments.map(
+            payment => <PaymentRow payment={payment} key={payment.id}/>
+          )}
+        </tbody>
+      </table>
     );
   }
 }

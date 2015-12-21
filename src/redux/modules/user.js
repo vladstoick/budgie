@@ -53,7 +53,7 @@ export function loadToken() {
 
 export function loginUser(user) {
   console.log('logging in');
-  return async function login(dispatch) {
+  return async (dispatch) => {
     dispatch(loggingUser());
     try {
       const data = await apiClient.login(user);

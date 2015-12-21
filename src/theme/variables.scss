@@ -1,24 +1,14 @@
-/**
- *  Define scss variables here.
- *
- *  Available options for Bootstrap:
- *  http://getbootstrap.com/customize/
- *
- */
+$dark-blue: rgb(34, 83, 120);
+$medium-blue: rgb(22, 149, 163);
+$light-blue: rgb(172, 240, 242);
+$light-yellow: rgb(243, 255, 226);
+$orange: rgb(235, 127, 0);
 
-// Custom Colors
-$cyan: #33e0ff;
-$humility: #777;
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400);
+$font-family-sans-serif: 'Open Sans','Helvetica Neue', Helvetica, Arial, sans-serif;
 
-// Bootstrap Variables
-$brand-primary: darken(#428bca, 6.5%);
-$brand-secondary: #e25139;
-$brand-success: #5cb85c;
-$brand-warning: #f0ad4e;
-$brand-danger: #d9534f;
-$brand-info: #5bc0de;
-
-$text-color: #333;
-
-$font-size-base: 14px;
-$font-family-sans-serif: "Helvetica Neue", Helvetica, sans-serif;
+$navbar-default-bg: $dark-blue;
+$navbar-default-link-color: $light-yellow;
+$navbar-default-link-hover-color: darken($light-yellow, 25%);
+$navbar-default-brand-color: white;
+$navbar-height: 60px;

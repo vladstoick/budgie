@@ -39,7 +39,7 @@ class LoginForm extends React.Component {
         <div className="col-md-6 col-md-offset-3">
           {error}
           <h1 className="text-center">Login</h1>
-            <form onSubmit={this.props.handleSubmit} action="loginjs" method="post">
+            <form onSubmit={this.props.handleSubmit} action="loginjs" method="post" className="form-horizontal">
             <TextInput
               label="Username"
               type="text"
@@ -55,6 +55,7 @@ class LoginForm extends React.Component {
               type="primary"
               text="Login"/>
           </form>
+          or Sign-up
         </div>
       </div>
     );

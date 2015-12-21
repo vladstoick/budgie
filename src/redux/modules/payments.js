@@ -40,7 +40,7 @@ export function fetchErrored(error) {
 }
 
 export function loadPayments() {
-  return async function load(dispatch) {
+  return async (dispatch) => {
     dispatch(fetchPayments());
     try {
       const data = await apiClient.getPayments();
