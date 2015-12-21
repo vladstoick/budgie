@@ -42,11 +42,6 @@ const proxy = httpProxy.createProxyServer({
   target: config.apiHost,
   changeOrigin: true,
 });
-// proxy.on('proxyReq', function(proxyReq, req) {
-//   if(req.query.token){
-//     proxyReq.setHeader('Authorization', 'Bearer ' + req.query.token);
-//   }
-// });
 
 app.use('/api', (req, res) => {
   proxy.web(req, res);

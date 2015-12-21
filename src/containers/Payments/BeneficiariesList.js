@@ -3,7 +3,8 @@ import { RoundProfilePicture } from '../../components';
 
 export default class extends React.Component {
   static propTypes = {
-    users: React.PropTypes.array
+    users: React.PropTypes.array,
+    size: React.PropTypes.number.isRequired
   }
   render() {
     if (this.props.users) {
@@ -13,13 +14,12 @@ export default class extends React.Component {
             <RoundProfilePicture
               user={user}
               key={user.id}
-              width={50}
-              height={50}
+              size={this.props.size}
             />
           )}
         </div>
       );
     }
-    return <div>No users</div>;
+    return <div style={{lineHeight: this.props.size + 'px'}}>No users</div>;
   }
 }

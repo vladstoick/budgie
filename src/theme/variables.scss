@@ -9,6 +9,7 @@ $font-family-sans-serif: 'Open Sans','Helvetica Neue', Helvetica, Arial, sans-se
 
 $navbar-default-bg: $dark-blue;
 $navbar-default-link-color: $light-yellow;
-$navbar-default-link-hover-color: darken($light-yellow, 25%);
+$navbar-default-link-hover-color: $medium-blue;
 $navbar-default-brand-color: white;
 $navbar-height: 60px;
+$navbar-default-link-active-color: darken($light-blue, 55%);

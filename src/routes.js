@@ -1,6 +1,6 @@
 import React from 'react';
-import { Route } from 'react-router';
-import { App, Login, Payments } from 'containers';
+import { Route, IndexRoute } from 'react-router';
+import { App, Login, Payments, FrontPage } from 'containers';
 import { loadToken } from './redux/modules/user';
 
 export default (store) => {
@@ -25,9 +25,10 @@ export default (store) => {
   };
   return (
     <Route path="/" component={App} onEnter={checkToken}>
-      <Route path="login" component={Login} onEnter={requireLogout}/>
+      <IndexRoute component={FrontPage} />
+      <Route path="login" component={Login} onEnter={requireLogout} />
       <Route onEnter={requireLogin}>
-        <Route path="payments" component={Payments}/>
+        <Route path="payments" component={Payments} />
       </Route>
     </Route>
   );

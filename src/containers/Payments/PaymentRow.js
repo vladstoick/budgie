@@ -11,13 +11,19 @@ export default class PaymentsRow extends React.Component {
   }
 
   render() {
+    const styles = require('./styles.scss');
     return (
-      <tr>
+      <tr className={styles.row}>
         <td>
-          <p>{this.props.payment.amount}</p>
+          <p className={styles.amount}>
+            {this.props.payment.amount}$ on 25.12.1222
+          </p>
         </td>
         <td>
-          <BeneficiariesList users={this.props.payment.beneficiaries}/>
+          <BeneficiariesList
+            users={this.props.payment.beneficiaries}
+            size={50}
+          />
         </td>
       </tr>
     );

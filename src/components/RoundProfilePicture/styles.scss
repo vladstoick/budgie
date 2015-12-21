@@ -1,9 +1,15 @@
+@import "../../theme/variables.scss";
+
 .roundProfilePicture {
-  background-color: white;
+  background-color: $orange;
   border-radius: 50%;
-  border: 1px solid #ddd;
+  border: 2px solid darken($orange, 20%);
   float: left;
   &:not(:last-child) {
     margin-right: 10px;
+  }
+  p {
+    margin: 0;
+    text-align: center
   }
 }

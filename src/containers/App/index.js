@@ -8,6 +8,9 @@ class App extends React.Component {
   static propTypes = {
     children: React.PropTypes.object.isRequired,
     user: React.PropTypes.object.isRequired,
+    location: React.PropTypes.shape({
+      pathname: React.PropTypes.string.isRequired
+    }),
     pushState: React.PropTypes.func.isRequired
   };
 
@@ -20,7 +23,9 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <Header user={this.props.user} />
+        <Header
+          user={this.props.user}
+          path={this.props.location.pathname} />
         <div className="container">
           { this.props.children }
         </div>

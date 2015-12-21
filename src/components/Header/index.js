@@ -3,20 +3,37 @@ import { Link } from 'react-router';
 
 class Header extends React.Component {
   static propTypes = {
-    user: React.PropTypes.object
+    user: React.PropTypes.object.isRequired,
+    path: React.PropTypes.string
+  }
+
+  getElementClass(path) {
+    return this.isActive(path);
+  }
+
+  isActive(path) {
+    return this.props.path === path ? 'active' : '';
+  }
+
+  renderLink(path, name) {
+    return (
+      <li className={this.getElementClass(path)}>
+        <Link to="/login">{name}</Link>
+      </li>
+    );
   }
 
   renderHeaderButtons() {
     if (!this.props.user.token) {
       return (
         <ul className="nav navbar-nav navbar-right">
-          <li className="pure-menu-item"><Link to="/login">Login</Link></li>
+          {this.renderLink('/login', 'Login')}
         </ul>
       );
     }
     return (
       <ul className="nav navbar-nav">
-        <li className="pure-menu-item"><Link to="/payments">Payments</Link></li>
+        {this.renderLink('/payments', 'Payments')}
       </ul>
     );
   }
