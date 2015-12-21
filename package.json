@@ -22,8 +22,7 @@
         "NODE_PATH": "./src",
         "NODE_ENV": "production",
         "API": "http://api.staging.bought.today/v1",
-        "API_ROUTE": "http://staging.bought.today/api",
-        "PORT": 3000
+        "API_ROUTE": "http://staging.bought.today/api"
       }
     },
     "start-dev": {
