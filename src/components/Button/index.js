@@ -6,11 +6,17 @@ export default class Button extends React.Component {
     onClick: React.PropTypes.func.isRequired,
     align: React.PropTypes.oneOf(['left', 'center', 'right']),
     size: React.PropTypes.oneOf([]),
-    type: React.PropTypes.oneOf([ 'default', 'primary', 'success', 'info', 'warning', 'danger', 'link' ])
+    type: React.PropTypes.oneOf([ 'default', 'primary', 'success',
+                                  'info', 'warning', 'danger', 'link' ]),
+    block: React.PropTypes.bool
   };
 
   getButtonType() {
     return this.props.type ? 'btn-' + this.props.type : 'btn-default';
+  }
+
+  getButtonBlockClass() {
+    return this.props.block ? 'btn-block' : null;
   }
 
   getAlignType() {
@@ -18,7 +24,7 @@ export default class Button extends React.Component {
   }
 
   getButtonClass() {
-    return [this.getButtonType(), 'btn'].join(' ');
+    return [this.getButtonType(), this.getButtonBlockClass(), 'btn'].join(' ');
   }
 
   render() {

@@ -32,9 +32,18 @@ class Header extends React.Component {
       );
     }
     return (
-      <ul className="nav navbar-nav">
-        {this.renderLink('/payments', 'Payments')}
-      </ul>
+      <div>
+        <ul className="nav navbar-nav">
+          {this.renderLink('/payments', 'Payments')}
+        </ul>
+        <ul className="nav navbar-nav navbar-right">
+          <ul className="nav navbar-nav navbar-right">
+            <li>
+              <a>{this.props.user.token.substring(0, 10)}</a>
+            </li>
+          </ul>
+        </ul>
+      </div>
     );
   }
 

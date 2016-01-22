@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, TextInput } from '../../components';
-import {reduxForm} from 'redux-form';
+import { reduxForm } from 'redux-form';
 
 const validate = values => {
   const errors = {};
@@ -37,25 +37,32 @@ class LoginForm extends React.Component {
     return (
       <div className="row">
         <div className="col-md-6 col-md-offset-3">
-          {error}
-          <h1 className="text-center">Login</h1>
-            <form onSubmit={this.props.handleSubmit} action="loginjs" method="post" className="form-horizontal">
-            <TextInput
-              label="Username"
-              type="text"
-              obj={this.props.fields.username}/>
-            <TextInput
-              label="Password"
-              type="password"
-              error={this.props.fields.password.error}
-              obj={this.props.fields.password}/>
-            <Button
-              align="right"
-              onClick={this.props.handleSubmit}
-              type="primary"
-              text="Login"/>
-          </form>
-          or Sign-up
+          <div className="panel panel-default">
+            <div className="panel-heading">
+              <h2 className="text-center">Login</h2>
+            </div>
+            <div className="panel-body">
+              {error}
+              <form onSubmit={this.props.handleSubmit} action="loginjs" method="post" className="form">
+                <TextInput
+                  label="Username"
+                  type="text"
+                  obj={this.props.fields.username}/>
+                <TextInput
+                  label="Password"
+                  type="password"
+                  error={this.props.fields.password.error}
+                  obj={this.props.fields.password}/>
+                <Button
+                  align="right"
+                  block
+                  onClick={this.props.handleSubmit}
+                  type="primary"
+                  text="Login"/>
+              </form>
+              or Sign-up
+            </div>
+          </div>
         </div>
       </div>
     );

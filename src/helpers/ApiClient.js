@@ -10,25 +10,35 @@ export default class ApiClient {
     return '/api';
   }
 
+  getLoggedInHeader() {
+    return { 'Authorization': 'Bearer ' + reactCookie.load('token') };
+  }
+
   async login(user) {
     const request = await fetch(this.getBaseUrl() + '/login', {
       method: 'post',
       body: JSON.stringify(user)
     });
-    const data = await request.json();
-    if (request.status >= 400) {
-      throw new Error(data.error);
-    } else {
-      return data;
-    }
+    return await this.handleJson(request);
   }
 
   async getPayments() {
     const request = await fetch(this.getBaseUrl() + '/users/me/payments', {
-      headers: {
-        'Authorization': 'Bearer ' + reactCookie.load('token')
-      }
+      headers: this.getLoggedInHeader()
     });
+    return await this.handleJson(request);
+  }
+
+  async createPayment(payment) {
+    const request = await fetch(this.getBaseUrl() + '/users/me/payments', {
+      method: 'post',
+      body: JSON.stringify(payment),
+      headers: this.getLoggedInHeader()
+    });
+    return await this.handleJson(request);
+  }
+
+  async handleJson(request) {
     const data = request.json();
     if (request.status >= 400) {
       throw new Error(data.error);

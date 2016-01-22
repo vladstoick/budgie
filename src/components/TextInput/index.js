@@ -38,15 +38,13 @@ class TextInput extends React.Component {
   render() {
     return (
       <div className={this.getWrapperClass()}>
-        <label htmlFor={this.props.name} className="col-sm-2">{this.props.label}</label>
-        <div className="col-sm-10">
+        <label htmlFor={this.props.name}>{this.props.label}</label>
         <input
             type={this.getInputType()}
-            className="form-control col-sm-10"
+            className="form-control"
             placeholder={this.props.label}
             {...this.props.obj}/>
           {this.getError()}
-        </div>
       </div>
     );
   }

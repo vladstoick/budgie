@@ -12,4 +12,4 @@ $navbar-default-link-color: $light-yellow;
 $navbar-default-link-hover-color: $medium-blue;
 $navbar-default-brand-color: white;
 $navbar-height: 60px;
-$navbar-default-link-active-color: darken($light-blue, 55%);
+$navbar-default-link-active-color: darken($navbar-default-link-color, 5%);
